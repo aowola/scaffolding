@@ -1,0 +1,36 @@
+/* Base Classes for Position */
+
+.left { float:left; }
+.right { float:right; }
+.block { display:block; }
+.inline-block { display:inline-block; }
+.table {
+  display: table;
+  position: static;
+}
+.cell {
+  position: static;
+  display: table-cell;
+  vertical-align: middle;
+}
+.cell-content {  position: static; }
+.center {
+  display: table;
+  margin: 0 auto;
+}
+.circle { border-radius: 50%; }
+.ns {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+@mixin swatch($name, $color, $bg: true) {
+  .#{$name} { color: $color; }
+  @if $bg == true {
+  .#{$name + "-bg"} { background-color: $color; }
+  }
+}

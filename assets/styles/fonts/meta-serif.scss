@@ -1,0 +1,37 @@
+/* Meta Serif */
+
+@font-face { 
+  font-family: 'Meta Serif';
+  src: url('../fonts/metaserif-regular.eot');
+  src: url('../fonts/metaserif-regular.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/metaserif-regular.woff') format('woff'),
+       url('../fonts/metaserif-regular.ttf') format('truetype'),
+       url('../fonts/metaserif-regular.svg#meta_serif_regular') format('svg');
+  font-weight: normal;
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face { 
+  font-family: 'Meta Serif';
+  src: url('../fonts/metaserif-italic.eot');
+  src: url('../fonts/metaserif-italic.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/metaserif-italic.woff') format('woff'),
+       url('../fonts/metaserif-italic.ttf') format('truetype'),
+       url('../fonts/metaserif-italic.svg#meta_serif_italic') format('svg');
+  font-weight: normal;
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face { 
+  font-family: 'Meta Serif';
+  src: url('../fonts/metaserif-bold.eot');
+  src: url('../fonts/metaserif-bold.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/metaserif-bold.woff') format('woff'),
+       url('../fonts/metaserif-bold.ttf') format('truetype'),
+       url('../fonts/metaserif-bold.svg#meta_serif_bold') format('svg');
+  font-weight: bold;
+  font-weight: 700;
+  font-style: normal;
+}

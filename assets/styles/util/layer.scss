@@ -1,0 +1,10 @@
+.layer {
+  position: relative;
+  .bg-layer, .content-layer, .active-layer {
+    position: absolute; 
+    top: 0; left: 0;
+  } 
+  .background-layer { z-index: 0; }
+  .content-layer { z-index: 100; }
+  .event-layer { z-index: 200; }
+}

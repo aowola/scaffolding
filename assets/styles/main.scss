@@ -1,0 +1,35 @@
+// Third Party
+@import "compass/css3";
+@import "compass/typography/vertical_rhythm";
+
+// Utilities
+@import "util/layer";
+@import "util/reset";
+@import "util/util";
+
+// Fonts
+@import "fonts/meta-serif";
+
+// Settings
+$main-width: emCalc(960px);
+$main-header-height: 2em;
+$section-padding: 1.4em;
+$section-height: 4em;
+
+// Project Specific
+
+// Views
+
+html, body {
+  height:100%;
+  width:100%;
+  #header {
+    max-height: $main-header-height;
+    width:100%;
+  }
+
+  #content {
+    height: 100%;
+    width:100%;
+  }
+}
