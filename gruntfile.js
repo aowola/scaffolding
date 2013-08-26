@@ -3,10 +3,15 @@ module.exports = function(grunt) {
 
   // Scaffolding configuration.
   var config = {
+    srv: "server",
     src: "assets",
     tmp: ".tmp",
     lib: "libs"
   };
+
+  var port = grunt.option('port') || 9000,
+  livereload = typeof(grunt.option('port')) === "boolean" ? grunt.option('port') : false;
+  grunt.verbose.write("Setting Connect Port to" + port);
 
   // Project configuration.
   grunt.initConfig({
@@ -90,7 +95,8 @@ module.exports = function(grunt) {
           'define':true,
           'require':true,
           'requirejs':true
-        }
+        },
+        ignores: ['<%= app.src %>/scripts/templates/templates.js']
       },
       gruntfile: {
         src: 'gruntfile.js'
@@ -113,27 +119,61 @@ module.exports = function(grunt) {
         files:[{'<%= app.tmp %>/styles/main.css':'<%= app.src %>/styles/main.scss'}]
       }
     },
+    hogan: {
+      compile_server: {
+        options: {
+          namespace: 'templates',
+          prettify: true,
+          commonJsWrapper: true,
+          defaultName: function(filename) {
+            return filename.split('/').pop().replace('.hogan', '');
+          }
+        },
+        files:{
+          "<%= app.srv %>/templates.js": ["<%= app.src %>/templates/**/*.hogan"]
+        }
+      },
+      compile_client: {
+        options: {
+          namespace: 'templates',
+          prettify: true,
+          amdWrapper:true,
+          amdRequire: {
+            hogan: "Hogan"
+          },
+          defaultName: function(filename) {
+            return filename.split('/').pop().replace('.hogan', '');
+          }
+        },
+        files:{
+          "<%= app.src %>/scripts/templates/templates.js": ["<%= app.src %>/templates/**/*.hogan"]
+        }
+      }
+    },
     requirejs: {
       compile: {
         options: {
-          name: 'app',
+          name: 'main',
           baseUrl: "<%= app.src %>/scripts",
-          mainConfigFile: "<%= app.src %>/scripts/bootstrap.js",
+          mainConfigFile: "<%= app.src %>/scripts/main.js",
           out: "<%= app.tmp %>/scripts/main.js"/*,
           optimize : 'none',*/
         }
       }
     },
-    connect: {
+    express: {
+      options: {
+        args: ['public=<%= app.tmp %>']
+      },
       server: {
         options: {
-          port: 9001,
-          base: '<%= app.tmp %>'
+          port: port,
+          script: './server/server.js'
         }
       }
     },
     watch: {
-      options: { livereload: true },
+      options: { livereload: livereload },
       gruntfile: {
         files: '<%= jshint.gruntfile.src %>',
         tasks: ['jshint:gruntfile', 'default']
@@ -167,8 +207,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-compass');
   grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-contrib-hogan');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
-  grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-express-server');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Default task.
@@ -176,6 +217,8 @@ module.exports = function(grunt) {
     'jshint:gruntfile',
     'jshint:javascript',
     'clean:tmp',
+    'hogan:compile_client',
+    'hogan:compile_server',
     'requirejs:compile',
     'sass:tmp',
     'copy:requirejs',
@@ -185,5 +228,5 @@ module.exports = function(grunt) {
     'copy:views'
   ]);
 
-  grunt.registerTask('serve', ['default', 'connect:server','watch']);
+  grunt.registerTask('serve', ['default', 'express', 'watch']);
 };

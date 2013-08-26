@@ -1,3 +1,7 @@
 .tmp/
 .sass-cache/
 .bower_components/
+assets/lib
+assets/scripts/templates
+server/templates.js
+prototype3.zip

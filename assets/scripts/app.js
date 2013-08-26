@@ -1,10 +1,16 @@
-require(['backbone', 'bootstrap', 'util/log', 'util/info', 'router'],
-  function(Backbone, bootstrap, log, info, Router) {
-    'use strict';
+define(function(require) {
+  'use strict';
+  var log       = require('util/log'),
+      info      = require('util/info'),
+      router    = require('router');
+
     /* Entry point of application */
     log(info.toString());
 
     /* Init Application Router */
-    new Router();
-    Backbone.history.start();
+    return {
+      initialize: function() {
+        router.initialize();
+      }
+    };
 });

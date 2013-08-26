@@ -20,6 +20,10 @@ Once you've pulled the project note bower.json file that defines the dependencie
 To build and host the solution locally the following grunt command should be used. It also institues a watch, which will perform an auto reload of the browser on completion.
 ####Build
     grunt server
+####Build with custom port
+    grunt server --port=1234
+####Build with livereload
+    grunt server --livereload=true
 
 ##Deployment
 Current build target is a .tmp which will contain all the files necessary to deploy the solution.
